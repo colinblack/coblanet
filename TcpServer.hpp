@@ -4,10 +4,13 @@
 #include <tuple>
 #include <memory>
 #include <map>
-#include  "Listener.hpp"
+#include "Listener.hpp"
 #include "Connect.hpp"
 #include <string>
 #include "Socket.h"
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <arpa/inet.h>
 
 using namespace cobred::net;
 class TcpServer{
@@ -29,14 +32,6 @@ private:
 
 
 void TcpServer::Start(){
-    int32_t listenFd = Socket(AF_INET, SOCK_STREAM, 0);
-    sockaddr_in  addr;
-    addr.sin_family = AF_INET;
-    addr.sin_addr.s_addr = inet_addr(ip_.c_str());
-    addr.sin_port = htons(port_);
-
-    Bind(listenFd, &addr, sizeof(addr));
-    Listen(listenFd, 10);
 
 }
 

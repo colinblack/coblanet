@@ -12,6 +12,6 @@ public:
 
 
 private:
-   int32_t eventFd_;
-   std::vector<epoll_event*> eventData_;
+   int32_t epollFd_;
+   std::vector<epoll_event> eventData_;
 };
