@@ -1,10 +1,13 @@
 #include "Channel.h"
 #include "Socket.h"
+#include "InetAddr.h"
 #include <functional>
+#include <arpa/inet.h>
 
 class Listener
 {
 public:
+    using ConnectCallback = std::function(void(int32_t, InetAddr &));
     Listener(/* args */)
     {
     }
@@ -12,7 +15,10 @@ public:
     {
     }
 
-    using ConnectCallback = std::function(void());
+private:
+    Channel listenChan_;
+    int32_t listenFd_;
+    ConnectCallback connectCB_;
 
     void SetConnectCallback(ConnectCallback cb)
     {
@@ -27,6 +33,11 @@ public:
         {
             return;
         }
+        InetAddr clientAddr;
+        clientAddr.port_ = ntohs(addr.sin_port);
+        clientAddr.ip_ = inet_ntoa(addr.sin_addr);
+
+        connectCB_(sockFd, clientAddr);
     }
 
     void GoListener()
@@ -42,9 +53,4 @@ public:
         listenChan_.SetFd(listenFd_);
         listenChan_.SetReadCallBack(std::bind(&Listener::HandlerRead, this));
     }
-
-private:
-    Channel listenChan_;
-    int32_t listenFd_;
-    ConnectCallback connectCB_;
 };

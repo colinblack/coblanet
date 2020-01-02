@@ -1,13 +1,11 @@
 #include <stdint.h>
 #include <string>
 
-class InetAddr
+struct InetAddr
 {
-private:
     int16_t port_;
     std::string ip_;
 
-public:
     InetAddr(/* args */);
     ~InetAddr();
 };
