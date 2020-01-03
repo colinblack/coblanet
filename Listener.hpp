@@ -36,8 +36,10 @@ private:
         InetAddr clientAddr;
         clientAddr.port_ = ntohs(addr.sin_port);
         clientAddr.ip_ = inet_ntoa(addr.sin_addr);
-
-        connectCB_(sockFd, clientAddr);
+        if (connectCB_)
+        {
+            connectCB_(sockFd, clientAddr);
+        }
     }
 
     void GoListener()
