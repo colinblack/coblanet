@@ -1,3 +1,7 @@
+#ifndef  _CONNECT_HPP_
+#define  _CONNECT_HPP_
+
+
 #include "InetAddr.h"
 #include <sys/epoll.h>
 
@@ -17,3 +21,5 @@ Connect::Connect(/* args */)
 Connect::~Connect()
 {
 }
+
+#endif /*_CONNECT_HPP_*/

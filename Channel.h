@@ -1,14 +1,18 @@
-#include "EventLoop.h"
+#ifndef  _CHANNEL_H_
+#define  _CHANNEL_H_
+
+//#include "EventLoop.h"
 #include <functional>
 
+class EventLoop;
 class Channel{
 public:
     Channel(EventLoop* loop)
-        : loop_(loop), event_(0), fd(0){
+        : loop_(loop), event_(0), fd_(0){
 
     }
 public:
-    using function<void(void*)> ReadCallbackFunc;
+    using ReadCallbackFunc = std::function<void()> ;
 
     void HandlerReadEv(){
     	if(readCB_){
@@ -32,12 +36,14 @@ public:
     }
 
     void SetReadCallBack(ReadCallbackFunc bc){
-        radCB_ = std::move(bc);
+        readCB_ = std::move(bc);
     }
 
+    ReadCallbackFunc readCB_;
 private:
     EventLoop* loop_;
     int32_t event_;
     int32_t fd_;
-    ReadCallbackFunc readCB_;
 };
+
+#endif /*_CHANNEL_H_*/

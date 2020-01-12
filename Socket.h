@@ -1,3 +1,6 @@
+#ifndef _SOCKET_H_
+#define _SOCKET_H_
+
 #include <sys/types.h>          /* See NOTES */
 #include <sys/socket.h>
 
@@ -9,6 +12,6 @@ namespace cobred {
 		int32_t Accept(int32_t sockfd, struct sockaddr *addr, socklen_t *addrlen);
     }
 }
-     
 
 
+#endif /*_SOCKET_H_*/

@@ -1,25 +1,31 @@
+#ifndef _LISTENER_HPP_
+#define _LISTENER_HPP_
+
 #include "Channel.h"
 #include "Socket.h"
 #include "InetAddr.h"
 #include <functional>
 #include <arpa/inet.h>
 
+using namespace cobred::net;
 class Listener
 {
 public:
-    using ConnectCallback = std::function(void(int32_t, InetAddr &));
-    Listener(/* args */)
+    Listener(EventLoop* loop):
+        listenChan_(loop)
     {
     }
     ~Listener()
     {
     }
+    using ConnectCallback = std::function<void(int32_t, InetAddr &)>;
 
 private:
     Channel listenChan_;
     int32_t listenFd_;
     ConnectCallback connectCB_;
 
+public:
     void SetConnectCallback(ConnectCallback cb)
     {
         connectCB_ = std::move(cb);
@@ -56,3 +62,5 @@ private:
         listenChan_.SetReadCallBack(std::bind(&Listener::HandlerRead, this));
     }
 };
+
+#endif /*_LISTENER_HPP_*/

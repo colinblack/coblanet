@@ -1,3 +1,6 @@
+#ifndef  _INETADDR_H_
+#define  _INETADDR_H_
+
 #include <stdint.h>
 #include <string>
 
@@ -17,3 +20,5 @@ InetAddr::InetAddr(/* args */)
 InetAddr::~InetAddr()
 {
 }
+
+#endif /*_INETADDR_H_*/

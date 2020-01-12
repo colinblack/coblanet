@@ -1,7 +1,12 @@
+#ifndef _EVENTLOOP_H_
+#define _EVENTLOOP_H_
+
 #include <vector>
 #include <sys/epoll.h>
-#include "Channel.h"
+//#include "Channel.h"
 
+
+class Channel;
 class EventLoop{
 public:
    EventLoop();
@@ -15,3 +20,6 @@ private:
    int32_t epollFd_;
    std::vector<epoll_event> eventData_;
 };
+
+
+#endif  /*_EVENTLOOP_H_*/
