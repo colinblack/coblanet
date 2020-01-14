@@ -11,8 +11,7 @@ using namespace cobred::net;
 class Listener
 {
 public:
-    Listener(EventLoop* loop):
-        listenChan_(loop)
+    Listener(EventLoop *loop, int16_t port, std::string ip) : listenChan_(loop)
     {
     }
     ~Listener()
@@ -23,6 +22,8 @@ public:
 private:
     Channel listenChan_;
     int32_t listenFd_;
+    int16_t port_;
+    std::string ip_;
     ConnectCallback connectCB_;
 
 public:
@@ -31,7 +32,7 @@ public:
         connectCB_ = std::move(cb);
     }
 
-    void HandlerRead(void *argc)
+    void HandlerRead()
     {
         sockaddr_in addr;
         int32_t sockFd = ::accept(listenFd_, reinterpret_cast<sockaddr *>(&addr), sizeof(addr));
@@ -56,7 +57,7 @@ public:
         addr.sin_addr.s_addr = inet_addr(ip_.c_str());
         addr.sin_port = htons(port_);
 
-        Bind(listenFd_, &addr, sizeof(addr));
+        Bind(listenFd_, reinterpret_cast<const sockaddr *>(&addr), sizeof(addr));
         Listen(listenFd_, 10);
         listenChan_.SetFd(listenFd_);
         listenChan_.SetReadCallBack(std::bind(&Listener::HandlerRead, this));

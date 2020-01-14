@@ -14,7 +14,7 @@ int32_t net::Socket(int32_t domain, int32_t type, int32_t protocol)
     return fd;
 }
 
-void net::Bind(int32_t sockfd, const struct sockaddr *addr, socklen_t addrlen)
+void net::Bind(int32_t sockfd, const sockaddr *addr, socklen_t addrlen)
 {
     if (::bind(sockfd, addr, addrlen) < 0)
     {

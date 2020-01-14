@@ -12,28 +12,28 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include <functional>
+#include <memory>
 
 using namespace cobred::net;
+class EventLoop;
 class TcpServer
 {
 public:
-    TcpServer(int16_t port, int16_t ip) : port_(port), ip_(ip)
+    TcpServer()
     {
     }
-    void Start();
+    void Start(EventLoop *loop, int16_t port, std::string &ip);
 
 public:
     std::shared_ptr<Listener> listener_;
     std::map<std::string, Connect> conns_;
     void NewConnection();
-
-private:
-    int16_t port_;
-    std::string ip_;
 };
 
-void TcpServer::Start()
+void TcpServer::Start(EventLoop *loop, int16_t port, std::string &ip)
 {
+    listener_ = std::make_shared<Listener>(new Listener(loop, port, ip));
+    listener_->GoListener();
     listener_->SetConnectCallback(std::bind(&TcpServer::NewConnection, this));
 }
 

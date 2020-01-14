@@ -1,5 +1,6 @@
 #include "EventLoop.h"
 #include "Channel.h"
+#include <fcntl.h>
 
 EventLoop::EventLoop()
     : epollFd_(::epoll_create1(FD_CLOEXEC))
@@ -10,19 +11,24 @@ void EventLoop::loop()
 {
     while (1)
     {
-        int32_t evCnt = epoll_wait(epollFd_, &*eventData_.begin(), eventData.size(), 0);
+        int32_t evCnt = epoll_wait(epollFd_, &*eventData_.begin(), eventData_.size(), 0);
         for (int i = 0; i < evCnt; ++i)
         {
             auto &ev = eventData_[i];
-            auto ch = reinterpret_cast<Channel*>(ev.data.ptr);
-            if(ev.events & (EPOLLERR|EPOLLHUP)){
-	        }else if(ev.events & EPOLLIN){
+            auto ch = reinterpret_cast<Channel *>(ev.data.ptr);
+            if (ev.events & (EPOLLERR | EPOLLHUP))
+            {
+            }
+            else if (ev.events & EPOLLIN)
+            {
                 ch->readCB_();
-	        }else if(ev.events & EPOLLOUT){
-
-	        }else{
-
-	        }
+            }
+            else if (ev.events & EPOLLOUT)
+            {
+            }
+            else
+            {
+            }
         }
     }
 }
