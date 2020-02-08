@@ -7,17 +7,21 @@
 #include <functional>
 #include <arpa/inet.h>
 
+
 using namespace cobred::net;
 class Listener
 {
 public:
-    Listener(EventLoop *loop, int16_t port, std::string ip) : listenChan_(loop)
+    Listener(EventLoop *loop, int16_t port, std::string ip) 
+        : listenChan_(loop)
     {
     }
     ~Listener()
     {
     }
-    using ConnectCallback = std::function<void(int32_t, InetAddr &)>;
+  //  using ConnectCallback = std::function<void(int32_t, InetAddr &)>;
+    typedef std::function<void(int32_t, InetAddr& )> ConnectCallback;
+
 
 private:
     Channel listenChan_;
@@ -35,7 +39,8 @@ public:
     void HandlerRead()
     {
         sockaddr_in addr;
-        int32_t sockFd = ::accept(listenFd_, reinterpret_cast<sockaddr *>(&addr), sizeof(addr));
+        socklen_t addrLen;
+        int32_t sockFd = ::accept(listenFd_, reinterpret_cast<sockaddr *>(&addr), &addrLen);
         if (sockFd < 0)
         {
             return;

@@ -1,11 +1,5 @@
 {
     "files.associations": {
-        "memory": "cpp",
-        "functional": "cpp",
-        "vector": "cpp",
-        "string": "cpp",
-        "*.tcc": "cpp",
-        "cstdint": "cpp",
-        "atomic": "cpp"
+        "functional": "cpp"
     }
 }

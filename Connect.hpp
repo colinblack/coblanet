@@ -7,11 +7,11 @@
 
 class Connect
 {
-private:
-    /* data */
 public:
     Connect(/* args */);
     ~Connect();
+    void ReadHandler();
+
 };
 
 Connect::Connect(/* args */)
@@ -20,6 +20,12 @@ Connect::Connect(/* args */)
 
 Connect::~Connect()
 {
+}
+
+void Connect::ReadHandler(){
+
+
+
 }
 
 #endif /*_CONNECT_HPP_*/
