@@ -13,12 +13,6 @@ struct InetAddr
     ~InetAddr();
 };
 
-InetAddr::InetAddr(/* args */)
-{
-}
 
-InetAddr::~InetAddr()
-{
-}
 
 #endif /*_INETADDR_H_*/

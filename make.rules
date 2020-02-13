@@ -1,0 +1,27 @@
+### cmd
+CC   = gcc
+CXX  = g++
+AR   = ar
+
+#Debug Version
+CFLAGS  = -g -Wall -pipe -fno-ident -fno-inline -MMD -D_GNU_SOURCE -D_REENTRNT -D_DEBUG_BUILD -fPIC -std=c++11
+
+#Release Version
+#CFLAGS  = -O3 -Wall -pipe -fno-ident -MMD -D_GNU_SOURCE -D_REENTRNT -D_RELEASE_BUILD -fPIC -std=c++11
+
+CXXFLAGS= $(CFLAGS)
+
+dirs=src
+
+#define get_trunk_path
+#	trunk_path=`pwd`; \
+#	for dir in $(dirs); do \
+#		if [[ $${trunk_path} = *$$dir* ]]; then \
+#			trunk_path=`echo $${trunk_path} | sed "s/\/$$dir.*//"`; \
+#			break; \
+#		fi \
+#	done; \
+#	echo ${trunk_path}
+#endef
+
+#PATH_PLATFORM_PRJ := $(shell $(call get_trunk_path))

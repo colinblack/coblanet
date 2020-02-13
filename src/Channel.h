@@ -9,12 +9,16 @@ class Channel
 {
 public:
     Channel(EventLoop *loop)
-        : loop_(loop), event_(0), fd_(0)
+        : loop_(loop)
+        , event_(0)
+        , fd_(0)
     {
     }
 
 public:
     using ReadCallbackFunc = std::function<void()>;
+    using WriteCallbackFunc = std::function<void()>;
+    using ExceptionCallbackFunc = std::function<void()>;
 
     void HandlerReadEv()
     {
@@ -49,6 +53,8 @@ public:
     }
 
     ReadCallbackFunc readCB_;
+    WriteCallbackFunc writeCB_;
+    ExceptionCallbackFunc ExceptionCB_;
 
 private:
     EventLoop *loop_;
