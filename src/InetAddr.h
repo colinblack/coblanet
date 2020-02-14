@@ -6,7 +6,7 @@
 
 struct InetAddr
 {
-    int16_t port_;
+    uint16_t port_;
     std::string ip_;
 
     InetAddr(/* args */);

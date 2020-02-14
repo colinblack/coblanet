@@ -9,11 +9,17 @@
 class Connect
 {
 public:
-    Connect(EventLoop* loop);
+    Connect(EventLoop* loop, int16_t fd, InetAddr& addr);
     ~Connect();
     void ReadHandler();
+    void WriteHandler();
+    void ConnectEstabished();
 private:
+    static const int32_t buffSize_ = 64;
+    InetAddr addr_;
     std::unique_ptr<Channel> channel_;
+    std::unique_ptr<char> pBuff_;
+    
 };
 
 

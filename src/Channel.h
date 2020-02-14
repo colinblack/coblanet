@@ -33,6 +33,17 @@ public:
         loop_->AddChannel(this);
     }
 
+    void EnableWriting(){
+        event_ |= EPOLLOUT;
+        loop_->AddChannel(this);
+    }
+
+    void DisableRead(){
+        event_ &= ~EPOLLIN;
+    }
+    void DisableWrite(){
+        event_ &= ~EPOLLOUT;
+    }
     int32_t getFd()
     {
         return fd_;
@@ -50,6 +61,10 @@ public:
     void SetReadCallBack(ReadCallbackFunc bc)
     {
         readCB_ = std::move(bc);
+    }
+
+    void SetWriteCallBack(WriteCallbackFunc bc){
+        writeCB_ = std::move(bc);
     }
 
     ReadCallbackFunc readCB_;

@@ -14,6 +14,8 @@ class Listener
 public:
     Listener(EventLoop *loop, int16_t port, std::string ip) 
         : listenChan_(loop)
+        , port_(port)
+        , ip_(ip)
     {
     }
     ~Listener()

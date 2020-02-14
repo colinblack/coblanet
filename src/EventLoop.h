@@ -17,6 +17,7 @@ public:
 
 
 private:
+   static const int32_t epollInitVaule = 16;
    int32_t epollFd_;
    std::vector<epoll_event> eventData_;
 };

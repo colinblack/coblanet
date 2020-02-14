@@ -1,4 +1,7 @@
 #include "Listener.h"
+#include <cstdio>
+#include <cerrno>
+#include <cstring>
 
 void Listener::HandlerRead()
 {
@@ -7,6 +10,7 @@ void Listener::HandlerRead()
     int32_t sockFd = ::accept(listenFd_, reinterpret_cast<sockaddr *>(&addr), &addrLen);
     if (sockFd < 0)
     {
+        printf("accept error:%s, %d \n", strerror(errno), errno);
         return;
     }
     InetAddr clientAddr;
@@ -21,7 +25,7 @@ void Listener::HandlerRead()
 
 void Listener::GoListener()
 {
-    int32_t listenFd_ = Socket(AF_INET, SOCK_STREAM, 0);
+    listenFd_ = Socket(AF_INET, SOCK_STREAM, 0);
     sockaddr_in addr;
     addr.sin_family = AF_INET;
     addr.sin_addr.s_addr = inet_addr(ip_.c_str());
@@ -30,6 +34,7 @@ void Listener::GoListener()
     Bind(listenFd_, reinterpret_cast<const sockaddr *>(&addr), sizeof(addr));
     Listen(listenFd_, 10);
     listenChan_.SetFd(listenFd_);
+    listenChan_.EnableReading();
     listenChan_.SetReadCallBack(std::bind(&Listener::HandlerRead, this));
 }
 

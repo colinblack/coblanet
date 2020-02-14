@@ -24,9 +24,9 @@ public:
         , conId_(1)
     {
     }
-    void Start(int16_t port, std::string &ip);
+    void Start(int16_t port, const std::string &&ip);
 private:
-    void NewConnection();
+    void NewConnection(int32_t fd, InetAddr & addr);
 
 private:
     using ConnectMap = std::map<std::string, std::shared_ptr<Connect>>;
