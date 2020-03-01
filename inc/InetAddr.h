@@ -4,13 +4,16 @@
 #include <stdint.h>
 #include <string>
 
-struct InetAddr
+class InetAddr
 {
+public:
+    InetAddr();
+    InetAddr(uint16_t , std::string);
+    ~InetAddr();
+
+public:
     uint16_t port_;
     std::string ip_;
-
-    InetAddr(/* args */);
-    ~InetAddr();
 };
 
 

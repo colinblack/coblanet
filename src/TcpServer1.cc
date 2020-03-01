@@ -3,9 +3,9 @@
 #include <string>
 
 using namespace std::placeholders;
-void TcpServer1::Start(int16_t port, const std::string &&ip)
+void TcpServer1::Start(InetAddr& addr)
 {
-    listener_ = std::make_shared<Listener>(loop_, port, ip);
+    listener_ = std::make_shared<Listener>(loop_, addr.port_, addr.ip_);
     listener_->GoListener();
     listener_->SetConnectCallback(std::bind(&TcpServer1::NewConnection, this, _1, _2));
 }
