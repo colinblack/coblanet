@@ -7,14 +7,14 @@ CUR_PATH = $(trunk_path)/$(TARGET_DIR_NAME)
 CPPS := $(wildcard $(CUR_PATH)/*.cc)
 OBJS := $(patsubst $(CUR_PATH)/%.cc, ./%.o, $(CPPS))
 
-TARGETS = cobred
+TARGETS = libcob.so
 
-INC = -I.
+INC = -I ../inc
 
 all:$(TARGETS)
 
 $(TARGETS) : $(OBJS)
-	$(CXX) $(OBJS) $(CFLAGS) $(INC) -o $(TARGETS)
+	$(CXX) $(OBJS) $(CFLAGS) $(INC) -shared -o $(TARGETS)
 
 %.o : $(CUR_PATH)/%.cc
 	$(CXX) $(CFLAGS) $(INC) -c $< -o $@

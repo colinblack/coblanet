@@ -1,5 +1,5 @@
-#ifndef _TCP_SERVER_H_
-#define _TCP_SERVER_H_
+#ifndef _TCP_SERVER1_H_
+#define _TCP_SERVER1_H_
 
 #include <tuple>
 #include <memory>
@@ -16,15 +16,16 @@
 
 using namespace cobred::net;
 class EventLoop;
-class TcpServer
+class TcpServer1
 {
 public:
-    TcpServer(EventLoop* loop)
+    TcpServer1(EventLoop* loop)
         : loop_(loop)
         , conId_(1)
     {
     }
     void Start(int16_t port, const std::string &&ip);
+    EventLoop* GetLoop();
 private:
     void NewConnection(int32_t fd, InetAddr & addr);
 
@@ -38,4 +39,4 @@ private:
 
 
 
-#endif /* _TCP_SERVER_H_ */
+#endif /* _TCP_SERVER1_H_ */

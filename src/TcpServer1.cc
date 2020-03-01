@@ -1,16 +1,20 @@
-#include "TcpServer.h"
+#include "TcpServer1.h"
 #include <cstdio>
 #include <string>
 
 using namespace std::placeholders;
-void TcpServer::Start(int16_t port, const std::string &&ip)
+void TcpServer1::Start(int16_t port, const std::string &&ip)
 {
     listener_ = std::make_shared<Listener>(loop_, port, ip);
     listener_->GoListener();
-    listener_->SetConnectCallback(std::bind(&TcpServer::NewConnection, this, _1, _2));
+    listener_->SetConnectCallback(std::bind(&TcpServer1::NewConnection, this, _1, _2));
 }
 
-void TcpServer::NewConnection(int32_t fd, InetAddr & addr)
+EventLoop* TcpServer1::GetLoop(){
+    return loop_;
+}
+
+void TcpServer1::NewConnection(int32_t fd, InetAddr & addr)
 {
     std::shared_ptr<Connect> con(new Connect(loop_, fd, addr));
     con->ConnectEstabished();
