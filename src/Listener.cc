@@ -13,9 +13,7 @@ void Listener::HandlerRead()
         printf("accept error:%s, %d \n", strerror(errno), errno);
         return;
     }
-    InetAddr clientAddr;
-    clientAddr.port_ = ntohs(addr.sin_port);
-    clientAddr.ip_ = inet_ntoa(addr.sin_addr);
+    InetAddr clientAddr(ntohs(addr.sin_port), inet_ntoa(addr.sin_addr));
     if (connectCB_)
     {
         connectCB_(sockFd, clientAddr);

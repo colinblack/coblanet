@@ -13,6 +13,7 @@
 #include <arpa/inet.h>
 #include <functional>
 #include <memory>
+#include "InetAddr.h"
 
 using namespace cobred::net;
 class EventLoop;
@@ -24,7 +25,7 @@ public:
         , conId_(1)
     {
     }
-    void Start(int16_t port, const std::string &&ip);
+    void Start(InetAddr& addr);
     EventLoop* GetLoop();
 private:
     void NewConnection(int32_t fd, InetAddr & addr);
