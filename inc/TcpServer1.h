@@ -24,10 +24,23 @@ public:
         : loop_(loop)
         , conId_(1)
     {
+        messageCallback_ =  std::bind(&TcpServer1::DefaultMessage, this); 
     }
+    ~TcpServer1(){
+    }
+
+public:
+    using MessageCallback= std::function<bool()>;
+
+public:
     void Start(InetAddr& addr);
     EventLoop* GetLoop();
+    void SetMessageCallback(const MessageCallback& cb);
+    bool OnMessage(); //消息处理接口
+    bool DefaultMessage(); //默认消息处理函数
+
 private:
+    MessageCallback messageCallback_;
     void NewConnection(int32_t fd, InetAddr & addr);
 
 private:

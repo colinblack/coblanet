@@ -18,8 +18,13 @@ void TcpServer1::NewConnection(int32_t fd, InetAddr & addr)
 {
     std::shared_ptr<Connect> con(new Connect(loop_, fd, addr));
     con->ConnectEstabished();
+    con->SetMessageCallback(messageCallback_);
     char buf[64];
     snprintf(buf, sizeof buf, "%ld", conId_);
     std::string strId(buf);
     connsMap_[strId] = con;
 } 
+
+void TcpServer1::SetMessageCallback(const MessageCallback& cb){
+    messageCallback_ = cb;
+}

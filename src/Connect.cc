@@ -20,6 +20,9 @@ Connect::~Connect()
 
 void Connect::ReadHandler(){
     read(channel_->getFd(), pBuff_.get(), buffSize_);
+    if(messageCallback_ != nullptr){
+        messageCallback_();
+    }
     printf("%s \n", pBuff_.get());
     channel_->EnableWriting();
 }
@@ -33,4 +36,8 @@ void Connect::WriteHandler(){
 
 void Connect::ConnectEstabished(){
     channel_->EnableReading();
+}
+
+void Connect::SetMessageCallback(const MessageCallback& cb){
+    messageCallback_ = cb;
 }
