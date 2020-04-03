@@ -4,7 +4,7 @@
 #include <sys/types.h> /* See NOTES */
 #include <sys/socket.h>
 
-namespace cobred
+namespace flynet 
 {
 namespace net
 {
@@ -13,6 +13,6 @@ void Bind(int32_t sockfd, const sockaddr *addr, socklen_t addrlen);
 void Listen(int sockfd, int backlog);
 int32_t Accept(int32_t sockfd, struct sockaddr *addr, socklen_t *addrlen);
 } // namespace net
-} // namespace cobred
-
+} // namespace flynet
+ 
 #endif /*_SOCKET_H_*/

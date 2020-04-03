@@ -1,7 +1,7 @@
 #include "Socket.h"
 #include <stdlib.h>
 
-using namespace cobred;
+using namespace flynet;
 
 int32_t net::Socket(int32_t domain, int32_t type, int32_t protocol)
 {
