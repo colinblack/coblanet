@@ -2,6 +2,7 @@
 #include <cstdio>
 #include <cerrno>
 #include <cstring>
+#include "Logger.h"
 
 void Listener::HandlerRead()
 {
@@ -10,7 +11,7 @@ void Listener::HandlerRead()
     int32_t sockFd = ::accept(listenFd_, reinterpret_cast<sockaddr *>(&addr), &addrLen);
     if (sockFd < 0)
     {
-        printf("accept error:%s, %d \n", strerror(errno), errno);
+        LOG_ERROR("accept error:%s, %d \n", strerror(errno), errno);
         return;
     }
     InetAddr clientAddr(ntohs(addr.sin_port), inet_ntoa(addr.sin_addr));

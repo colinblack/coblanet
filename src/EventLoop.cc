@@ -4,13 +4,14 @@
 #include <cstring>
 #include <cstdio>
 #include <errno.h>
+#include "Logger.h"
 
 EventLoop::EventLoop()
     : epollFd_(::epoll_create1(EPOLL_CLOEXEC))
     ,eventData_(epollInitVaule)
 {
     if(epollFd_ < 0){
-        printf("epoll create error1:%s \n", strerror(errno));
+        LOG_ERROR("epoll create error1:%s \n", strerror(errno));
     }
 }
 
@@ -51,10 +52,10 @@ void EventLoop::loop()
             }
         }else if(evCnt == 0)
         {
-
+            LOG_DEBUG("epoll even is null \n");
         }else
         {
-            printf("epoll wait error:%s, %d \n", strerror(errno), errno);
+            LOG_ERROR("epoll wait error:%s, %d \n", strerror(errno), errno);
         }
  
     }
@@ -69,6 +70,6 @@ void EventLoop::AddChannel(Channel *channel)
     int32_t ret = epoll_ctl(epollFd_, EPOLL_CTL_ADD, channel->getFd(), &evData);
     if (ret == -1)
     {
-        printf("add epoll error::%s, %d \n", strerror(errno), errno);
+        LOG_ERROR("add epoll error::%s, %d \n", strerror(errno), errno);
     }
 }

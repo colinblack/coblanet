@@ -3,6 +3,7 @@
 #include <unistd.h>
 #include <string.h>
 #include <stdio.h>
+#include "Logger.h"
 
 Connect::Connect(EventLoop* loop, int16_t fd, InetAddr& addr)
     : addr_(addr)
@@ -23,14 +24,14 @@ void Connect::ReadHandler(){
     if(messageCallback_ != nullptr){
         messageCallback_();
     }
-    printf("%s \n", pBuff_.get());
+    LOG_DEBUG("%s \n", pBuff_.get());
     channel_->EnableWriting();
 }
 
 void Connect::WriteHandler(){
     int32_t ret = write(channel_->getFd(), pBuff_.get(), buffSize_);
     if(ret < 0){
-        printf("send data error:%s, %d \n", strerror(errno), errno);
+        LOG_ERROR("send data error:%s, %d \n", strerror(errno), errno);
     }
 }
 
