@@ -8,13 +8,15 @@ CPPS := $(wildcard $(CUR_PATH)/*.cc)
 OBJS := $(patsubst $(CUR_PATH)/%.cc, ./%.o, $(CPPS))
 
 TARGETS = libflynet.so
+#TARGETS = flynet
 
 INC = -I ../inc
 
 all:$(TARGETS)
 
 $(TARGETS) : $(OBJS)
-	$(CXX) $(OBJS) $(CFLAGS) $(INC) -shared -o $(TARGETS) -llog4cpp
+	$(CXX) $(OBJS) $(CFLAGS) $(INC) -shared -o $(TARGETS) 
+#	$(CXX) $(OBJS) $(CFLAGS) $(INC) -o $(TARGETS) 
 
 %.o : $(CUR_PATH)/%.cc
 	$(CXX) $(CFLAGS) $(INC) -c $< -o $@

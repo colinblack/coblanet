@@ -28,3 +28,8 @@ void TcpServer1::NewConnection(int32_t fd, InetAddr & addr)
 void TcpServer1::SetMessageCallback(const MessageCallback& cb){
     messageCallback_ = cb;
 }
+
+bool TcpServer1::DefaultMessage(){
+
+    return true;
+}

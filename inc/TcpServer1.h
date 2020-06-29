@@ -36,7 +36,6 @@ public:
     void Start(InetAddr& addr);
     EventLoop* GetLoop();
     void SetMessageCallback(const MessageCallback& cb);
-    bool OnMessage(); //消息处理接口
     bool DefaultMessage(); //默认消息处理函数
 
 private:
