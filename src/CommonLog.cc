@@ -34,8 +34,6 @@ void Logger::CommonLog::WriteLogEx(std::size_t lv, const char* fmt, SrcFile& fil
     va_start(ap, fmt);
     time_t now = time(nullptr);
     localtime_r((const time_t *)&now, &t);
-/*     int32_t bytes = snprintf((char*)buffer_.GetBuffer(), buffer_.Size(), "[%02d:%02d:%02d][%05d][%s:%05d][%s]",
-               t.tm_hour, t.tm_min, t.tm_sec, getpid(), file.Name(), va_arg(ap, int32_t), va_arg(ap, const char* )); */
     int32_t line = va_arg(ap, int32_t);
     const char* func = va_arg(ap, const char* );
     //注意sprintf从右向左入栈，这种写法sprintf("....",  va_arg, va_arg)有问题
