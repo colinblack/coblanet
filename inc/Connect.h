@@ -4,12 +4,15 @@
 #include "InetAddr.h"
 #include <sys/epoll.h>
 #include "Channel.h"
+#include  "CallBacks.h"
+
 #include <memory>
+
+namespace flynet{
+namespace net{
 
 class Connect
 {
-public:
-    using MessageCallback = std::function<bool()>;
 public:
     Connect(EventLoop* loop, int16_t fd, InetAddr& addr);
     ~Connect();
@@ -25,6 +28,11 @@ private:
     MessageCallback messageCallback_;
     
 };
+
+ }
+
+}
+
 
 
 #endif /*_CONNECT_H_*/

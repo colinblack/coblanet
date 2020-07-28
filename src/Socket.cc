@@ -3,6 +3,10 @@
 #include <stdlib.h>
 #include <cstring>
 #include <cerrno>
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <arpa/inet.h>
+
 
 using namespace flynet;
 

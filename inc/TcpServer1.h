@@ -15,8 +15,12 @@
 #include <memory>
 #include "InetAddr.h"
 
-using namespace flynet::net;
+
+namespace flynet{
+namespace net{
+
 class EventLoop;
+
 class TcpServer1
 {
 public:
@@ -50,6 +54,9 @@ private:
     int64_t conId_;
 };
 
+}
+
+}
 
 
 #endif /* _TCP_SERVER1_H_ */

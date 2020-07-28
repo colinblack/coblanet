@@ -5,9 +5,11 @@
 #include <stdio.h>
 #include "Logger.h"
 
+using  namespace  flynet::net;
+
 Connect::Connect(EventLoop* loop, int16_t fd, InetAddr& addr)
     : addr_(addr)
-    , channel_(new Channel(loop))
+    , channel_(new Channel(loop, fd))
     , pBuff_(new char[buffSize_])
 {
     channel_->SetReadCallBack(std::bind(&Connect::ReadHandler, this));

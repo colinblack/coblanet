@@ -24,12 +24,12 @@ void Listener::HandlerRead()
 
 void Listener::GoListener()
 {
-    listenFd_ = Socket(AF_INET, SOCK_STREAM, 0);
     sockaddr_in addr;
     addr.sin_family = AF_INET;
     addr.sin_addr.s_addr = inet_addr(ip_.c_str());
     addr.sin_port = htons(port_);
 
+    LOG_DEBUG("ip: %s \n", ip_.c_str());
     Bind(listenFd_, reinterpret_cast<const sockaddr *>(&addr), sizeof(addr));
     Listen(listenFd_, 10);
     listenChan_.SetFd(listenFd_);

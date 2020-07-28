@@ -3,6 +3,8 @@
 #include <string>
 
 using namespace std::placeholders;
+using namespace flynet::net;
+
 void TcpServer1::Start(InetAddr& addr)
 {
     listener_ = std::make_shared<Listener>(loop_, addr.port_, addr.ip_);

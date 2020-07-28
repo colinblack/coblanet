@@ -21,6 +21,7 @@ Logger::CommonLog::CommonLog()
 }
 
 Logger::CommonLog::~CommonLog(){
+        printf("~CommonLog \n");
         fclose(fp_);
 }
 
@@ -41,7 +42,8 @@ void Logger::CommonLog::WriteLogEx(std::size_t lv, const char* fmt, SrcFile& fil
                t.tm_hour, t.tm_min, t.tm_sec, getpid(), file.Name(), line , func);
     bytes += vsnprintf((char*)buffer_.GetBuffer() + bytes, buffer_.Size(), fmt, ap);
     va_end(ap);
-    fwrite(buffer_.GetBuffer(),  1,  bytes,  fp_);
+    int cnt = fwrite(buffer_.GetBuffer(),  1,  bytes,  fp_);
+    fflush(fp_);
 }
 
 bool Logger::CommonLog::SetLevelEx(int32_t level){

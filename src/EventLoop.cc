@@ -6,8 +6,10 @@
 #include <errno.h>
 #include "Logger.h"
 
+using namespace flynet::net;
+
 EventLoop::EventLoop()
-    : epollFd_(::epoll_create1(EPOLL_CLOEXEC))
+   : epollFd_(::epoll_create1(EPOLL_CLOEXEC))
     ,eventData_(epollInitVaule)
 {
     if(epollFd_ < 0){
@@ -19,7 +21,7 @@ void EventLoop::loop()
 {
     while (1)
     {
-        int32_t evCnt = epoll_wait(epollFd_, &*eventData_.begin(), static_cast<int>(eventData_.size()), 0);
+        int32_t evCnt = epoll_wait(epollFd_, &*eventData_.begin(), static_cast<int>(eventData_.size()), -1);
         if(evCnt > 0)
         {
             if(evCnt >= static_cast<int>(eventData_.size())){
@@ -36,6 +38,7 @@ void EventLoop::loop()
                 {
                     if(ch->readCB_)
                     {
+                        LOG_DEBUG("readCB_ \n");
                        ch->readCB_();
                     }
                 }
@@ -52,7 +55,7 @@ void EventLoop::loop()
             }
         }else if(evCnt == 0)
         {
-            LOG_DEBUG("epoll even is null \n");
+          LOG_DEBUG("haha, epoll even is null \n");
         }else
         {
             LOG_ERROR("epoll wait error:%s, %d \n", strerror(errno), errno);
@@ -67,9 +70,17 @@ void EventLoop::AddChannel(Channel *channel)
     memset(&evData, 0, sizeof evData);
     evData.events = channel->getEvent();
     evData.data.ptr = channel;
+//    LOG_DEBUG("AddChannel, fd=%d,  event=%d, ptr=%p \n", channel->getFd(), channel->getEvent(), channel);
     int32_t ret = epoll_ctl(epollFd_, EPOLL_CTL_ADD, channel->getFd(), &evData);
     if (ret == -1)
     {
         LOG_ERROR("add epoll error::%s, %d \n", strerror(errno), errno);
     }
 }
+
+/* TimerEv  EventLoop::TimerStart(TimerTaskCallBack  cb,    uint64_t  after, uint64_t  repeat ){
+    //timer
+    //insert priority
+   //settimer
+
+} */

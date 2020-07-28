@@ -13,9 +13,10 @@ class Listener
 {
 public:
     Listener(EventLoop *loop, int16_t port, std::string ip) 
-        : listenChan_(loop)
+        :listenFd_(Socket(AF_INET, SOCK_STREAM, 0))
         , port_(port)
         , ip_(ip)
+        ,listenChan_(loop, listenFd_)
     {
     }
     ~Listener()
@@ -24,10 +25,10 @@ public:
     using ConnectCallback = std::function<void(int32_t, InetAddr &)>;
 
 private:
-    Channel listenChan_;
     int32_t listenFd_;
     int16_t port_;
     std::string ip_;
+    Channel listenChan_;
     ConnectCallback connectCB_;
 
 public:
